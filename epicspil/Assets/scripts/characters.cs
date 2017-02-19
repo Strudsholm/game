@@ -13,21 +13,20 @@ public class characters : MonoBehaviour
 {
 
     int selectedCharacter;
-    GameObject p1;
-    GameObject p2;
-    GameObject p3, groundchecker, character;
+    GameObject p1, groundchecker, character;
     Rigidbody2D rigidbody;
     Vector3 movement;
     public float speed;
     bool grounded;
     public float jumpspeedp2;
     public LayerMask groundlayer;
+    Sprite s1, s2, s3;
+    private SpriteRenderer spriteRenderer;
+
     // Use this for initialization
     void Start()
     {
         p1 = GameObject.Find("p1");
-        p2 = GameObject.Find("p2");
-        p3 = GameObject.Find("p3");
         groundchecker = GameObject.Find("Ground");
         character = GameObject.Find("Characters");
         selectedCharacter = 1;
@@ -38,7 +37,6 @@ public class characters : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         GlobalVariables.speedGlobal = speed;
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -50,9 +48,6 @@ public class characters : MonoBehaviour
         }
         if (selectedCharacter == 1)
         {
-            p1.SetActive(true);
-            p2.SetActive(false);
-            p3.SetActive(false);
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
@@ -69,11 +64,8 @@ public class characters : MonoBehaviour
         }
         else if (selectedCharacter == 2)
         {
-            p1.SetActive(false);
-            p2.SetActive(true);
-            p3.SetActive(false);
 
-           //grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
+            //grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -98,9 +90,6 @@ public class characters : MonoBehaviour
         }
         else if (selectedCharacter == 3)
         {
-            p1.SetActive(false);
-            p2.SetActive(false);
-            p3.SetActive(true);
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
