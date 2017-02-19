@@ -6,7 +6,7 @@ public class p1Script : MonoBehaviour {
     private Rigidbody2D rigidbody2D;
     public float jumpforce;
     public float movingSpeed;
-    Sprite s1, s2, s3;
+    Sprite[] s1, s2, s3;
     public float speed;
     public int selectedCharacter;
     private SpriteRenderer spriteRenderer;
@@ -19,16 +19,16 @@ public class p1Script : MonoBehaviour {
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         rigidbody2D.AddForce(new Vector3(0, 100 * jumpforce, 0));
         selectedCharacter = 1;
-        s1 = Resources.Load("p1_spritesheet", typeof(Sprite)) as Sprite;
-        s2 = Resources.Load("p2_spritesheet", typeof(Sprite)) as Sprite;
-        s3 = Resources.Load("p3_spritesheet", typeof(Sprite)) as Sprite;
+        s1 = Resources.LoadAll<Sprite>("p1_spritesheet");
+        s2 = Resources.LoadAll<Sprite>("p2_spritesheet");
+        s3 = Resources.LoadAll<Sprite>("p3_spritesheet");
 
-         
+
         groundchecker = GameObject.Find("Ground");
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
         if (spriteRenderer.sprite == null) // if the sprite on spriteRenderer is null then
-            spriteRenderer.sprite = s1; // set the sprite to sprite1
+            spriteRenderer.sprite = (Sprite)s1[0]; // set the sprite to sprite1
     }
 	
 	// Update is called once per frame
@@ -53,7 +53,11 @@ public class p1Script : MonoBehaviour {
         if (selectedCharacter == 1)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = s1;
+            spriteRenderer.sprite = (Sprite)s1 [0];
+            if(!grounded)
+            {
+                spriteRenderer.sprite = (Sprite)s1 [6];
+            }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
@@ -71,8 +75,11 @@ public class p1Script : MonoBehaviour {
         else if (selectedCharacter == 2)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = s2;
-
+            spriteRenderer.sprite = (Sprite)s2 [0];
+            if (!grounded)
+            {
+                spriteRenderer.sprite = (Sprite)s2 [6];
+            }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
@@ -104,8 +111,11 @@ public class p1Script : MonoBehaviour {
         else if (selectedCharacter == 3)
         {
             Debug.Log("Change sprite");
-            spriteRenderer.sprite = s3;
-
+            spriteRenderer.sprite = (Sprite)s3 [0];
+            if (!grounded)
+            {
+                spriteRenderer.sprite = (Sprite)s3 [6];
+            }
             if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Debug.Log("Moving Left");
