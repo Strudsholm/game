@@ -23,6 +23,7 @@ public class p1Script : MonoBehaviour {
         s2 = Resources.Load("p2_spritesheet", typeof(Sprite)) as Sprite;
         s3 = Resources.Load("p3_spritesheet", typeof(Sprite)) as Sprite;
 
+         
         groundchecker = GameObject.Find("Ground");
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>(); // we are accessing the SpriteRenderer that is attached to the Gameobject
@@ -34,11 +35,13 @@ public class p1Script : MonoBehaviour {
 	void Update () {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 0.1f);
 
+        grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
+
         // If it hits something...
-        if (hit != null && hit.transform != null)
-        {
-            grounded = true;
-        }
+        //if (hit != null && hit.transform != null)
+        //{
+        //    grounded = true;
+        //}
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
