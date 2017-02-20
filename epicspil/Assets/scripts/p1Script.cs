@@ -13,6 +13,7 @@ public class p1Script : MonoBehaviour {
     public LayerMask groundlayer;
     bool grounded;
     public GameObject groundchecker;
+    private Animator animator;
 
     // Use this for initialization
     void Start () {
@@ -23,6 +24,7 @@ public class p1Script : MonoBehaviour {
         s2 = Resources.LoadAll<Sprite>("p2_spritesheet");
         s3 = Resources.LoadAll<Sprite>("p3_spritesheet");
 
+        animator = GetComponent<Animator>();
 
         groundchecker = GameObject.Find("Ground");
 
@@ -36,12 +38,24 @@ public class p1Script : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 0.1f);
 
         grounded = Physics2D.OverlapCircle(groundchecker.transform.position, 0.2f, groundlayer);
+        Debug.Log(grounded);
 
         // If it hits something...
         //if (hit != null && hit.transform != null)
         //{
         //    grounded = true;
         //}
+
+        // Walking animation
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        {
+            animator.SetBool("walking", true);
+        }
+        else
+        {
+            animator.SetBool("walking", false);
+        }
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -130,6 +144,25 @@ public class p1Script : MonoBehaviour {
                 gameObject.transform.position += new Vector3(speed, 0, 0);
                 GlobalVariables.placement = gameObject.transform.position;
             }
+        }
+    }
+
+    void LateUpdate()
+    {
+        if (selectedCharacter == 1)
+        {
+            Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s1[0];
+        }
+        if (selectedCharacter == 2)
+        {
+            Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s2[0];
+        }
+        if (selectedCharacter == 3)
+        {
+            Debug.Log("Change sprite");
+            spriteRenderer.sprite = (Sprite)s3[0];
         }
     }
 }
